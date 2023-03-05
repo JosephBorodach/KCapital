@@ -3,7 +3,7 @@ KCapital is an innovative fund that utilizes cutting-edge electronic trading str
 
 ## Outline
 ### 1. Initialize the system:
-a. Load necessary libraries and dependencies
+a. Load necessary libraries and dependencies.
 b. Establish a connection to the trading platform's API
 c. Authenticate the user's credentials
 
@@ -18,9 +18,9 @@ b. Use the stored market data to make informed decisions about when to place ord
 c. Set up any risk management parameters (e.g. stop-loss orders)
 
 ### 4. Submit orders:
-a. Generate and submit buy/sell orders based on the trading strategy
-b. Monitor order status and adjust as necessary
-c. Handle any errors or exceptions that arise during order submission or execution
+a. Generate and submit buy/sell orders based on the trading strategy.
+b. Monitor order status and adjust as necessary.
+c. Handle any errors or exceptions that arise during order submission or execution.
 
 ### 5. Record trades:
 a. Log details of executed trades, including price, quantity, and time
