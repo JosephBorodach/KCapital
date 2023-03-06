@@ -1,11 +1,11 @@
 package com.KCapital.investments.tradingsystem.rest.endpoint.clock;
 
+import okhttp3.HttpUrl;
+import okhttp3.Request;
 import net.jacobpeterson.alpaca.model.endpoint.clock.Clock;
 import com.KCapital.investments.tradingsystem.rest.AlpacaClient;
 import com.KCapital.investments.tradingsystem.rest.AlpacaClientException;
 import com.KCapital.investments.tradingsystem.rest.endpoint.AlpacaEndpoint;
-import okhttp3.HttpUrl;
-import okhttp3.Request;
 
 /**
  * {@link AlpacaEndpoint} for <a href="https://docs.alpaca.markets/api-documentation/api-v2/clock/">Clock</a>.
@@ -14,7 +14,6 @@ public class ClockEndpoint extends AlpacaEndpoint {
 
     /**
      * Instantiates a new {@link ClockEndpoint}.
-     *
      * @param alpacaClient the {@link AlpacaClient}
      */
     public ClockEndpoint(AlpacaClient alpacaClient) {
@@ -23,17 +22,12 @@ public class ClockEndpoint extends AlpacaEndpoint {
 
     /**
      * Returns the market {@link Clock}.
-     *
      * @return the market {@link Clock}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public Clock get() throws AlpacaClientException {
-        HttpUrl.Builder urlBuilder = alpacaClient.urlBuilder()
-                .addPathSegment(endpointPathSegment);
-        Request request = alpacaClient.requestBuilder(urlBuilder.build())
-                .get()
-                .build();
+        HttpUrl.Builder urlBuilder = alpacaClient.urlBuilder().addPathSegment(endpointPathSegment);
+        Request request = alpacaClient.requestBuilder(urlBuilder.build()).get().build();
         return alpacaClient.requestObject(request, Clock.class);
     }
 }

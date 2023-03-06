@@ -4,7 +4,7 @@ package net.jacobpeterson.alpaca.model.endpoint.calendar;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

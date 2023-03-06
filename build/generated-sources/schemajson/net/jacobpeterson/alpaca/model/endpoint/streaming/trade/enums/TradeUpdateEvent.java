@@ -3,7 +3,7 @@ package net.jacobpeterson.alpaca.model.endpoint.streaming.trade.enums;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 

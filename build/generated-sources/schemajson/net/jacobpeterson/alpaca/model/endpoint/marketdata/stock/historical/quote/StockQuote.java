@@ -3,7 +3,7 @@ package net.jacobpeterson.alpaca.model.endpoint.marketdata.stock.historical.quot
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import net.jacobpeterson.alpaca.model.endpoint.marketdata.common.historical.quote.Quote;

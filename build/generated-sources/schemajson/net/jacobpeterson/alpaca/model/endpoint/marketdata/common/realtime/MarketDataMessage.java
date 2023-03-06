@@ -2,7 +2,7 @@
 package net.jacobpeterson.alpaca.model.endpoint.marketdata.common.realtime;
 
 import java.io.Serializable;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import net.jacobpeterson.alpaca.model.endpoint.marketdata.common.realtime.enums.MarketDataMessageType;

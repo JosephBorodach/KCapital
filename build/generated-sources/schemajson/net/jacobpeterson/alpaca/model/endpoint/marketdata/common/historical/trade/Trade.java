@@ -3,7 +3,7 @@ package net.jacobpeterson.alpaca.model.endpoint.marketdata.common.historical.tra
 
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

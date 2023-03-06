@@ -1,4 +1,8 @@
-com/KCapital/investments/tradingsystem/mock/AlpacaAPITest.java
- com.KCapital.investments.tradingsystem.mock.AlpacaAPITest
+com/KCapital/investments/tradingsystem/live/AlpacaAPITests.java
+ com.KCapital.investments.tradingsystem.live.AlpacaAPITests
 com/KCapital/investments/tradingsystem/live/AlpacaAPITest.java
  com.KCapital.investments.tradingsystem.live.AlpacaAPITest
+com/KCapital/investments/tradingsystem/mock/AlpacaAPITest.java
+ com.KCapital.investments.tradingsystem.mock.AlpacaAPITest
+com/KCapital/investments/tradingsystem/mock/Tests.java
+ com.KCapital.investments.tradingsystem.mock.Tests

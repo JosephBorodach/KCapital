@@ -34,34 +34,29 @@ public class AlpacaClient {
 
     /**
      * Instantiates a new {@link AlpacaClient}.
-     *
      * @param okHttpClient       the {@link OkHttpClient}
      * @param keyID              the key ID
      * @param secretKey          the secret key
      * @param alpacaSubdomain    the Alpaca subdomain
      * @param versionPathSegment the version path segment e.g. "v2"
      */
-    public AlpacaClient(OkHttpClient okHttpClient, String keyID, String secretKey, String alpacaSubdomain,
-                        String versionPathSegment) {
+    public AlpacaClient(OkHttpClient okHttpClient, String keyID, String secretKey, String alpacaSubdomain, String versionPathSegment) {
         this(okHttpClient, keyID, secretKey, null, alpacaSubdomain, versionPathSegment);
     }
 
     /**
      * Instantiates a new {@link AlpacaClient}.
-     *
      * @param okHttpClient       the {@link OkHttpClient}
      * @param oAuthToken         the OAuth token
      * @param alpacaSubdomain    the Alpaca subdomain
      * @param versionPathSegment the version path segment e.g. "v2"
      */
-    public AlpacaClient(OkHttpClient okHttpClient, String oAuthToken, String alpacaSubdomain,
-                        String versionPathSegment) {
+    public AlpacaClient(OkHttpClient okHttpClient, String oAuthToken, String alpacaSubdomain, String versionPathSegment) {
         this(okHttpClient, null, null, oAuthToken, alpacaSubdomain, versionPathSegment);
     }
 
     /**
      * Instantiates a new {@link AlpacaClient}.
-     *
      * @param okHttpClient       the {@link OkHttpClient}
      * @param keyID              the key ID
      * @param secretKey          the secret key
@@ -69,8 +64,7 @@ public class AlpacaClient {
      * @param alpacaSubdomain    the Alpaca subdomain
      * @param versionPathSegment the version path segment e.g. "v2"
      */
-    protected AlpacaClient(OkHttpClient okHttpClient, String keyID, String secretKey, String oAuthToken,
-                           String alpacaSubdomain, String versionPathSegment) {
+    protected AlpacaClient(OkHttpClient okHttpClient, String keyID, String secretKey, String oAuthToken, String alpacaSubdomain, String versionPathSegment) {
         checkNotNull(okHttpClient);
         checkNotNull(alpacaSubdomain);
         checkNotNull(versionPathSegment);
@@ -97,7 +91,6 @@ public class AlpacaClient {
 
     /**
      * Gets a new {@link okhttp3.HttpUrl.Builder}.
-     *
      * @return a {@link okhttp3.HttpUrl.Builder}
      */
     public HttpUrl.Builder urlBuilder() {
@@ -106,9 +99,7 @@ public class AlpacaClient {
 
     /**
      * Gets a new {@link okhttp3.Request.Builder} with {@link #requestHeaders}.
-     *
      * @param httpUrl the {@link okhttp3.HttpUrl}
-     *
      * @return a {@link okhttp3.Request.Builder}
      */
     public Request.Builder requestBuilder(HttpUrl httpUrl) {
@@ -124,15 +115,12 @@ public class AlpacaClient {
 
     /**
      * Requests an object given a {@link Request} that is deserialized via {@link Gson#fromJson(Reader, Type)}.
-     *
      * @param <T>           the type of object
      * @param request       the {@link Request}
      * @param isSuccessCode throws {@link AlpacaClientException} if passed in {@link Response#code()} to the {@link
      *                      Predicate#test(Object)} returns false
      * @param type          the object {@link Type}
-     *
      * @return the requested object
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public <T> T requestObject(Request request, Predicate<Integer> isSuccessCode, Type type)
@@ -149,13 +137,10 @@ public class AlpacaClient {
 
     /**
      * Requests a {@link JsonElement} given a {@link Request}.
-     *
      * @param request       the {@link Request}
      * @param isSuccessCode throws {@link AlpacaClientException} if passed in {@link Response#code()} to the {@link
      *                      Predicate#test(Object)} returns false
-     *
      * @return the {@link JsonElement}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public JsonElement requestJSON(Request request, Predicate<Integer> isSuccessCode) throws AlpacaClientException {

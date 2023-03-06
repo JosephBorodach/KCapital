@@ -4,12 +4,17 @@ import net.jacobpeterson.alpaca.model.properties.DataAPIType;
 import net.jacobpeterson.alpaca.model.properties.EndpointAPIType;
 
 import okhttp3.OkHttpClient;
-import com.sun.org.slf4j.internal.Logger;
-import com.sun.org.slf4j.internal.LoggerFactory;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import devcsrj.okhttp3.logging.HttpLoggingInterceptor;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkArgument;
+
 import com.KCapital.investments.tradingsystem.rest.AlpacaClient;
+
 import com.KCapital.investments.tradingsystem.rest.endpoint.accountactivities.AccountActivitiesEndpoint;
 import com.KCapital.investments.tradingsystem.rest.endpoint.accountconfiguration.AccountConfigurationEndpoint;
 import com.KCapital.investments.tradingsystem.rest.endpoint.account.AccountEndpoint;
@@ -23,7 +28,9 @@ import com.KCapital.investments.tradingsystem.rest.endpoint.positions.PositionsE
 import com.KCapital.investments.tradingsystem.rest.endpoint.watchlist.WatchlistEndpoint;
 import com.KCapital.investments.tradingsystem.rest.endpoint.marketdata.crypto.CryptoMarketDataEndpoint;
 import com.KCapital.investments.tradingsystem.rest.endpoint.marketdata.stock.StockMarketDataEndpoint;
+
 import com.KCapital.investments.tradingsystem.properties.AlpacaProperties;
+
 import com.KCapital.investments.tradingsystem.websocket.AlpacaWebsocket;
 import com.KCapital.investments.tradingsystem.websocket.marketdata.MarketDataWebsocketInterface;
 import com.KCapital.investments.tradingsystem.websocket.marketdata.crypto.CryptoMarketDataWebsocket;
@@ -32,6 +39,16 @@ import com.KCapital.investments.tradingsystem.websocket.streaming.StreamingWebso
 import com.KCapital.investments.tradingsystem.websocket.streaming.StreamingWebsocketInterface;
 
 /**
+ * Live:
+ * AKQCR5TPKAKU6UOXH7L9
+ * ndsget9Yf1xNAfV6kR9IA6JdpMbT4lHAGZbHpVfH
+ *
+ * Paper:
+ * PK9MOKLESAUEDPPUACON
+ * 0OqBa6wUahOsymQeF3J2tsddrE8M9H3KPdsijEj8
+ *
+ * CKH14I8W7SV1YMGAD8S3
+ * BShhcfj1xag88H9HuDICFkNw2lWG6nu3COKXYF5t
  * The {@link AlpacaAPI} class contains several instances of various {@link AlpacaEndpoint}s and {@link AlpacaWebsocket}s to interface with Alpaca.
  * You will generally only need one instance of this class in your application.
  * Note that many methods inside the various {@link AlpacaEndpoint}s allow <code>null<code/> to be passed in as a parameter if it is optional.
@@ -45,7 +62,6 @@ public class AlpacaAPI {
     private final AlpacaClient brokerClient;
     private final AlpacaClient cryptoDataClient;
     private final AlpacaClient stockDataClient;
-    // Ordering of fields/methods below are analogous to the ordering in the Alpaca documentation
     private final AccountEndpoint accountEndpoint;
     private final CryptoMarketDataEndpoint cryptoMarketDataEndpoint;
     private final StockMarketDataEndpoint stockMarketDataEndpoint;
@@ -95,9 +111,7 @@ public class AlpacaAPI {
      * @param oAuthToken the OAuth token. Note that the Data API v2 does not work with OAuth tokens.
      */
     public AlpacaAPI(String oAuthToken) {
-        this(null, null, null, oAuthToken,
-                AlpacaProperties.ENDPOINT_API_TYPE,
-                AlpacaProperties.DATA_API_TYPE);
+        this(null, null, null, oAuthToken, AlpacaProperties.ENDPOINT_API_TYPE, AlpacaProperties.DATA_API_TYPE);
     }
 
     /**
@@ -109,28 +123,18 @@ public class AlpacaAPI {
      * @param endpointAPIType the {@link EndpointAPIType}
      * @param dataAPIType     the {@link DataAPIType}
      */
-    public AlpacaAPI(OkHttpClient okHttpClient, String keyID, String secretKey, String oAuthToken,
-                     EndpointAPIType endpointAPIType, DataAPIType dataAPIType) {
-        checkArgument((keyID != null && secretKey != null) ^ oAuthToken != null,
-                "You must specify a (KeyID (%s) and Secret Key (%s)) or an OAuthToken (%s)!",
-                keyID, secretKey, oAuthToken);
+    public AlpacaAPI(OkHttpClient okHttpClient, String keyID, String secretKey, String oAuthToken, EndpointAPIType endpointAPIType, DataAPIType dataAPIType) {
+        checkArgument((keyID != null && secretKey != null) ^ oAuthToken != null, "You must specify a (KeyID (%s) and Secret Key (%s)) or an OAuthToken (%s)!", keyID, secretKey, oAuthToken);
         checkNotNull(endpointAPIType);
         checkNotNull(dataAPIType);
-
-        // Create default 'okHttpClient'
         if (okHttpClient == null) {
-            OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder()
-                    .cache(null); // Ensure response caching is disabled
-
+            OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder().cache(null); // Ensure response caching is disabled
             if (LOGGER.isDebugEnabled()) {
                 clientBuilder.addInterceptor(new HttpLoggingInterceptor((org.slf4j.Logger) LOGGER));
             }
-
             okHttpClient = clientBuilder.build();
         }
-
         this.okHttpClient = okHttpClient;
-
         String brokerHostSubdomain;
         switch (endpointAPIType) {
             case LIVE:
@@ -142,10 +146,8 @@ public class AlpacaAPI {
             default:
                 throw new UnsupportedOperationException();
         }
-
         if (oAuthToken == null) {
-            brokerClient = new AlpacaClient(okHttpClient, keyID, secretKey,
-                    brokerHostSubdomain, VERSION_2_PATH_SEGMENT);
+            brokerClient = new AlpacaClient(okHttpClient, keyID, secretKey, brokerHostSubdomain, VERSION_2_PATH_SEGMENT);
             cryptoDataClient = new AlpacaClient(okHttpClient, keyID, secretKey, "data", VERSION_1_BETA_1_PATH_SEGMENT);
             stockDataClient = new AlpacaClient(okHttpClient, keyID, secretKey, "data", VERSION_2_PATH_SEGMENT);
         } else {
@@ -153,7 +155,6 @@ public class AlpacaAPI {
             cryptoDataClient = null;
             stockDataClient = null;
         }
-
         accountEndpoint = new AccountEndpoint(brokerClient);
         cryptoMarketDataEndpoint = cryptoDataClient == null ? null : new CryptoMarketDataEndpoint(cryptoDataClient);
         stockMarketDataEndpoint = stockDataClient == null ? null : new StockMarketDataEndpoint(stockDataClient);
