@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.KCapital.investments.tradingsystem.mock.TradesTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-06T23:14:12" hostname="macbook-pro-16.lan" time="8.363">
+  <properties/>
+  <testcase name="OrdersEndpoint()" classname="com.KCapital.investments.tradingsystem.mock.TradesTests" time="8.363"/>
+  <system-out><![CDATA[Requested TSLA limit order at 2023-03-06T23:14:14.179651823Z
+Cancelled: net.jacobpeterson.alpaca.model.endpoint.orders.CancelledOrder@563c1027[id=2289273b-1051-404c-ad0a-e10f2d2c9c3f,status=200,order=<null>]
+Cancelled: net.jacobpeterson.alpaca.model.endpoint.orders.CancelledOrder@259bf7d2[id=a33cec41-98aa-429f-9456-b4d1318735c5,status=200,order=<null>]
+Cancelled: net.jacobpeterson.alpaca.model.endpoint.orders.CancelledOrder@8cffa2e[id=b77aeb90-e1f6-4a09-9946-fbbf71b94876,status=200,order=<null>]
+]]></system-out>
+  <system-err><![CDATA[[Test worker] INFO com.KCapital.investments.tradingsystem.util.properties.PropertyUtil - Using default properties for: alpaca.properties
+]]></system-err>
+</testsuite>

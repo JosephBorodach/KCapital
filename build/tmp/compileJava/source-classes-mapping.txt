@@ -223,8 +223,8 @@ net/jacobpeterson/alpaca/model/endpoint/streaming/listening/ListeningMessage.jav
  net.jacobpeterson.alpaca.model.endpoint.streaming.listening.ListeningMessage
 com/KCapital/investments/tradingsystem/rest/endpoint/portfoliohistory/PortfolioHistoryEndpoint.java
  com.KCapital.investments.tradingsystem.rest.endpoint.portfoliohistory.PortfolioHistoryEndpoint
-com/KCapital/investments/tradingsystem/rest/endpoint/account/AccountEndpoint.java
- com.KCapital.investments.tradingsystem.rest.endpoint.account.AccountEndpoint
+com/KCapital/investments/tradingsystem/rest/endpoint/clock/ClockEndpoint.java
+ com.KCapital.investments.tradingsystem.rest.endpoint.clock.ClockEndpoint
 com/KCapital/investments/tradingsystem/rest/endpoint/calendar/CalendarEndpoint.java
  com.KCapital.investments.tradingsystem.rest.endpoint.calendar.CalendarEndpoint
  com.KCapital.investments.tradingsystem.rest.endpoint.calendar.CalendarEndpoint$1
@@ -246,14 +246,14 @@ com/KCapital/investments/tradingsystem/rest/endpoint/accountconfiguration/Accoun
  com.KCapital.investments.tradingsystem.rest.endpoint.accountconfiguration.AccountConfigurationEndpoint
 com/KCapital/investments/tradingsystem/rest/endpoint/marketdata/crypto/CryptoMarketDataEndpoint.java
  com.KCapital.investments.tradingsystem.rest.endpoint.marketdata.crypto.CryptoMarketDataEndpoint
-com/KCapital/investments/tradingsystem/rest/endpoint/orders/OrdersEndpoint.java
- com.KCapital.investments.tradingsystem.rest.endpoint.orders.OrdersEndpoint
- com.KCapital.investments.tradingsystem.rest.endpoint.orders.OrdersEndpoint$1
- com.KCapital.investments.tradingsystem.rest.endpoint.orders.OrdersEndpoint$2
+com/KCapital/investments/tradingsystem/rest/endpoint/account/AccountEndpoint.java
+ com.KCapital.investments.tradingsystem.rest.endpoint.account.AccountEndpoint
 com/KCapital/investments/tradingsystem/rest/AlpacaClientException.java
  com.KCapital.investments.tradingsystem.rest.AlpacaClientException
 com/KCapital/investments/tradingsystem/AlpacaAPI.java
  com.KCapital.investments.tradingsystem.AlpacaAPI
  com.KCapital.investments.tradingsystem.AlpacaAPI$1
-com/KCapital/investments/tradingsystem/rest/endpoint/clock/ClockEndpoint.java
- com.KCapital.investments.tradingsystem.rest.endpoint.clock.ClockEndpoint
+com/KCapital/investments/tradingsystem/rest/endpoint/orders/OrdersEndpoint.java
+ com.KCapital.investments.tradingsystem.rest.endpoint.orders.OrdersEndpoint
+ com.KCapital.investments.tradingsystem.rest.endpoint.orders.OrdersEndpoint$1
+ com.KCapital.investments.tradingsystem.rest.endpoint.orders.OrdersEndpoint$2

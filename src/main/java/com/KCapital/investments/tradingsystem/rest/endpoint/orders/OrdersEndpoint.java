@@ -69,40 +69,29 @@ public class OrdersEndpoint extends AlpacaEndpoint {
      */
     public List<Order> get(CurrentOrderStatus status, Integer limit, ZonedDateTime after, ZonedDateTime until,
             SortDirection direction, Boolean nested, Collection<String> symbols) throws AlpacaClientException {
-        HttpUrl.Builder urlBuilder = alpacaClient.urlBuilder()
-                .addPathSegment(endpointPathSegment);
-
+        HttpUrl.Builder urlBuilder = alpacaClient.urlBuilder().addPathSegment(endpointPathSegment);
         if (status != null) {
             urlBuilder.addQueryParameter("status", status.toString());
         }
-
         if (limit != null) {
             urlBuilder.addQueryParameter("limit", limit.toString());
         }
-
         if (after != null) {
             urlBuilder.addQueryParameter("after", after.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
         }
-
         if (until != null) {
             urlBuilder.addQueryParameter("until", until.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME));
         }
-
         if (direction != null) {
             urlBuilder.addQueryParameter("direction", direction.toString());
         }
-
         if (nested != null) {
             urlBuilder.addQueryParameter("nested", nested.toString());
         }
-
         if (symbols != null && !symbols.isEmpty()) {
             urlBuilder.addQueryParameter("symbols", String.join(",", symbols));
         }
-
-        Request request = alpacaClient.requestBuilder(urlBuilder.build())
-                .get()
-                .build();
+        Request request = alpacaClient.requestBuilder(urlBuilder.build()).get().build();
         return alpacaClient.requestObject(request, ORDER_ARRAYLIST_TYPE);
     }
 
@@ -278,37 +267,26 @@ public class OrdersEndpoint extends AlpacaEndpoint {
      * to sell) is executed at the specified limit price or higher (better). Unlike a market order, you have to specify
      * the limit price parameter when submitting your order. This method calls {@link #requestOrder(String, Double,
      * Double, OrderSide, OrderType, OrderTimeInForce, Double, Double, Double, Double, Boolean, String, OrderClass,
-     * Double, Double, Double)} with {@link OrderType#LIMIT} so check the Javadoc for that method for the parameter
-     * details.
-     *
+     * Double, Double, Double)} with {@link OrderType#LIMIT} so check the Javadoc for that method for the parameter details.
      * @return the requested {@link Order}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
-    public Order requestLimitOrder(String symbol, Double quantity, OrderSide side, OrderTimeInForce timeInForce,
-            Double limitPrice, Boolean extendedHours) throws AlpacaClientException {
-        return requestOrder(symbol, quantity, null, side, OrderType.LIMIT, timeInForce, limitPrice,
-                null, null, null, extendedHours, null, OrderClass.SIMPLE, null, null, null);
+    public Order requestLimitOrder(String symbol, Double quantity, OrderSide side, OrderTimeInForce timeInForce, Double limitPrice, Boolean extendedHours) throws AlpacaClientException {
+        return requestOrder(symbol, quantity, null, side, OrderType.LIMIT, timeInForce, limitPrice, null, null, null, extendedHours, null, OrderClass.SIMPLE, null, null, null);
     }
 
     /**
      * A stop (market) order is an order to buy or sell a security when its price moves past a particular point,
      * ensuring a higher probability of achieving a predetermined entry or exit price. Once the market price crosses the
      * specified stop price, the stop order becomes a market order. Alpaca converts buy stop orders into stop limit
-     * orders with a limit price that is 4% higher than a stop price &lt; $50 (or 2.5% higher than a stop price &gt;=
-     * $50). Sell stop orders are not converted into stop limit orders. This method calls {@link #requestOrder(String,
-     * Double, Double, OrderSide, OrderType, OrderTimeInForce, Double, Double, Double, Double, Boolean, String,
-     * OrderClass, Double, Double, Double)} with {@link OrderType#STOP} so check the Javadoc for that method for
-     * parameter details.
-     *
+     * orders with a limit price that is 4% higher than a stop price &lt; $50 (or 2.5% higher than a stop price &gt;= $50).
+     * Sell stop orders are not converted into stop limit orders. This method calls {@link #requestOrder(String,Double, Double,
+     * OrderSide, OrderType, OrderTimeInForce, Double, Double, Double, Double, Boolean, String, OrderClass, Double, Double, Double)} with {@link OrderType#STOP} so check the Javadoc for that method for parameter details.
      * @return the requested {@link Order}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
-    public Order requestStopOrder(String symbol, Integer quantity, OrderSide side, OrderTimeInForce timeInForce,
-            Double stopPrice, Boolean extendedHours) throws AlpacaClientException {
-        return requestOrder(symbol, quantity.doubleValue(), null, side, OrderType.STOP, timeInForce, null, stopPrice,
-                null, null, extendedHours, null, OrderClass.SIMPLE, null, null, null);
+    public Order requestStopOrder(String symbol, Integer quantity, OrderSide side, OrderTimeInForce timeInForce, Double stopPrice, Boolean extendedHours) throws AlpacaClientException {
+        return requestOrder(symbol, quantity.doubleValue(), null, side, OrderType.STOP, timeInForce, null, stopPrice, null, null, extendedHours, null, OrderClass.SIMPLE, null, null, null);
     }
 
     /**
@@ -319,9 +297,7 @@ public class OrdersEndpoint extends AlpacaEndpoint {
      * Double, Double, OrderSide, OrderType, OrderTimeInForce, Double, Double, Double, Double, Boolean, String,
      * OrderClass, Double, Double, Double)} with {@link OrderType#STOP_LIMIT} so check the Javadoc for that method for
      * parameter details.
-     *
      * @return the requested {@link Order}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public Order requestStopLimitOrder(String symbol, Integer quantity, OrderSide side, OrderTimeInForce timeInForce,
@@ -395,9 +371,7 @@ public class OrdersEndpoint extends AlpacaEndpoint {
      * OrderTimeInForce, Double, Double, Double, Double, Boolean, String, OrderClass, Double, Double, Double)} with
      * {@link OrderType#LIMIT} and with parameters for a {@link OrderClass#ONE_CANCELS_OTHER} so check the Javadoc for
      * that method for parameter details.
-     *
      * @return the requested {@link Order}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public Order requestOTOMarketOrder(String symbol, Integer quantity, OrderSide side,
@@ -414,9 +388,7 @@ public class OrdersEndpoint extends AlpacaEndpoint {
      * OrderTimeInForce, Double, Double, Double, Double, Boolean, String, OrderClass, Double, Double, Double)} with
      * {@link OrderType#LIMIT} and with parameters for a {@link OrderClass#ONE_CANCELS_OTHER} so check the Javadoc for
      * that method for parameter details.
-     *
      * @return the requested {@link Order}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public Order requestOTOLimitOrder(String symbol, Integer quantity, OrderSide side,
@@ -433,9 +405,7 @@ public class OrdersEndpoint extends AlpacaEndpoint {
      * OrderTimeInForce, Double, Double, Double, Double, Boolean, String, OrderClass, Double, Double, Double)} with
      * {@link OrderType#STOP} and with parameters for a {@link OrderClass#ONE_CANCELS_OTHER} so check the Javadoc for
      * that method for parameter details.
-     *
      * @return the requested {@link Order}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public Order requestOTOStopOrder(String symbol, Integer quantity, OrderSide side,
@@ -452,9 +422,7 @@ public class OrdersEndpoint extends AlpacaEndpoint {
      * OrderTimeInForce, Double, Double, Double, Double, Boolean, String, OrderClass, Double, Double, Double)} with
      * {@link OrderType#STOP_LIMIT} and with parameters for a {@link OrderClass#ONE_CANCELS_OTHER} so check the Javadoc
      * for that method for parameter details.
-     *
      * @return the requested {@link Order}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public Order requestOTOStopLimitOrder(String symbol, Integer quantity, OrderSide side,
@@ -625,23 +593,16 @@ public class OrdersEndpoint extends AlpacaEndpoint {
     }
 
     /**
-     * Attempts to cancel an open {@link Order}. If the {@link Order} is no longer cancelable (example: {@link
-     * Order#getStatus()} <code>==</code> {@link OrderStatus#FILLED}), the server will respond with status
-     * <code>422</code>, and reject the request.
-     *
+     * Attempts to cancel an open {@link Order}.
+     * If the {@link Order} is no longer cancelable (example: {@link
+     * Order#getStatus()} <code>==</code> {@link OrderStatus#FILLED}), the server will respond with status <code>422</code>, and reject the request.
      * @param orderID the {@link Order#getId()}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public void cancel(String orderID) throws AlpacaClientException {
         checkNotNull(orderID);
-
-        HttpUrl.Builder urlBuilder = alpacaClient.urlBuilder()
-                .addPathSegment(endpointPathSegment)
-                .addPathSegment(orderID);
-        Request request = alpacaClient.requestBuilder(urlBuilder.build())
-                .delete()
-                .build();
+        HttpUrl.Builder urlBuilder = alpacaClient.urlBuilder().addPathSegment(endpointPathSegment).addPathSegment(orderID);
+        Request request = alpacaClient.requestBuilder(urlBuilder.build()).delete().build();
         alpacaClient.requestVoid(request, STATUS_CODE_200_OR_204);
     }
 }

@@ -221,7 +221,6 @@ public class AlpacaAPITest {
 
     /**
      * Test {@link AccountConfigurationEndpoint#set(AccountConfiguration)}.
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     @Test
