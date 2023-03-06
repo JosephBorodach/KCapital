@@ -75,7 +75,9 @@ Note:
 
 ## Class Outline
 ### AlpacaAPI
-- The program defines the AlpacaAPI class which contains several instances of various AlpacaEndpoints and AlpacaWebsockets to interface with Alpaca. These endpoints allow the user to perform various operations such as retrieving account information, submitting orders, managing positions and assets, accessing market data, etc.
-- The program uses the OkHttp library to create and send HTTP requests to the Alpaca API. The program uses the slf4j library for logging purposes.
+- Contains several instances of various AlpacaEndpoints and AlpacaWebsockets to interface with Alpaca. 
+- These endpoints allow the user to perform various operations such as retrieving account information, submitting orders, managing positions and assets, accessing market data, etc.
+- The program uses the OkHttp library to create and send HTTP requests to the Alpaca API. 
+- The program uses the slf4j library for logging purposes.
 - The program also uses properties specified in the alpaca.properties file (or their associated defaults) to instantiate a new AlpacaAPI object.
 - There are two constructors for the AlpacaAPI class: one that uses properties specified in the alpaca.properties file and another that takes in the key ID and secret key as parameters.
