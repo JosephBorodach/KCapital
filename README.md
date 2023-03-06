@@ -74,9 +74,8 @@ Note:
 6. Oanda: Oanda's API provides access to forex market data and trading functionality. The platform is known for its low spreads and user-friendly interface.
 
 ## Class Outline
-### Platform Class
-- Provide methods for connecting to the trading platform, authenticating with the platform, subscribing to market data feeds, placing orders, and retrieving account information. 
-- Interact with the trading platform API to perform these actions. The specifics of how this interaction is implemented will depend on the API itself. 
-- Provide some utility methods for converting between different types of market data, calculating indicators or other analytics, or managing other aspects of the trading platform. 
-- Handle any exceptions or errors that are thrown by the trading platform API, and provide appropriate error messages or logging for debugging purposes. 
-- Design to be easily extensible or modifiable as the requirements of the trading system evolve.
+### AlpacaAPI
+- The program defines the AlpacaAPI class which contains several instances of various AlpacaEndpoints and AlpacaWebsockets to interface with Alpaca. These endpoints allow the user to perform various operations such as retrieving account information, submitting orders, managing positions and assets, accessing market data, etc.
+- The program uses the OkHttp library to create and send HTTP requests to the Alpaca API. The program uses the slf4j library for logging purposes.
+- The program also uses properties specified in the alpaca.properties file (or their associated defaults) to instantiate a new AlpacaAPI object.
+- There are two constructors for the AlpacaAPI class: one that uses properties specified in the alpaca.properties file and another that takes in the key ID and secret key as parameters.
