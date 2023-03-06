@@ -1,0 +1,6 @@
+coverage:
+  status:
+    # Turn off Codecov status for now
+    project: off
+    patch: off
+comment: false
