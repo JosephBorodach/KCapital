@@ -65,15 +65,13 @@ Note:
 9. Regulatory compliance: Interactive Brokers is a well-regulated broker, with a strong focus on compliance and risk management. 
 10. Strong customer support: Interactive Brokers provides customer support via phone, email, and live chat, and has a reputation for being responsive and helpful.
 
-### Other Options Included
-1. Interactive Brokers
-2. TD Ameritrade: TD Ameritrade's API provides access to market data and trading functionality for equities, options, futures, and forex. The platform is known for its user-friendly interface and extensive educational resources.
-3. ETRADE: ETRADE's API allows traders to access market data, place orders, and manage their accounts. It supports equities, options, and futures, and offers both REST and streaming APIs. 
-4. Alpaca: Alpaca is a modern API-first brokerage that provides commission-free trading for US equities. It offers a simple REST API for placing orders and managing positions. 
-5. Coinbase: Coinbase provides an API for trading cryptocurrencies, including Bitcoin, Ethereum, and Litecoin. The platform supports both REST and WebSocket APIs for accessing real-time market data and placing orders. 
-6. Oanda: Oanda's API provides access to forex market data and trading functionality. The platform is known for its low spreads and user-friendly interface.
+### Other Considerations Included
+1. TD Ameritrade: TD Ameritrade's API provides access to market data and trading functionality for equities, options, futures, and forex. The platform is known for its user-friendly interface and extensive educational resources.
+2. ETRADE: ETRADE's API allows traders to access market data, place orders, and manage their accounts. It supports equities, options, and futures, and offers both REST and streaming APIs. 
+3. Coinbase: Coinbase provides an API for trading cryptocurrencies, including Bitcoin, Ethereum, and Litecoin. The platform supports both REST and WebSocket APIs for accessing real-time market data and placing orders. 
+4. Oanda: Oanda's API provides access to forex market data and trading functionality. The platform is known for its low spreads and user-friendly interface.
 
-## Class Outline
+## Packages & Classes
 ### AlpacaAPI
 - Contains several instances of various AlpacaEndpoints and AlpacaWebsockets to interface with Alpaca. 
 - These endpoints allow the user to perform various operations such as retrieving account information, submitting orders, managing positions and assets, accessing market data, etc.
