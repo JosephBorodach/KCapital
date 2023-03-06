@@ -39,7 +39,7 @@ Note:
 - Additionally, it is important to consider best practices for handling sensitive financial data, such as encrypting user credentials and implementing secure communication protocols.
 
 ## Trading API Platform - Alpaca
-![img.png](img.png)<br/>
+![image](https://user-images.githubusercontent.com/95253429/223236325-12dab687-ac61-4799-b360-59825d0130e2.png)<br/>
 Why Alpaca was chosen for development: 
 1. API-first approach: Alpaca was designed from the ground up to be an API-driven trading platform, which makes it easy for developers to build trading applications and algorithmic trading strategies. 
 2. Developer-friendly documentation: Alpaca provides clear and comprehensive documentation for its API, including code examples, API reference guides, and tutorials, which can help developers get started quickly and easily. 
@@ -53,6 +53,7 @@ Why Alpaca was chosen for development:
 10. Integrations: Alpaca integrates with a variety of popular third-party tools and platforms, such as TradingView, Quantopian, and Zapier, which makes it easy to incorporate Alpaca into your existing trading workflows and processes.
 
 Why Interactive Brokers was chosen for production:
+![image](https://user-images.githubusercontent.com/95253429/223236404-ffe1d3d8-f561-4ae3-880a-34db608a7f01.png)<br/>
 1. Low commissions: Interactive Brokers is known for its low commissions and fees, making it an attractive option for traders who want to keep their trading costs as low as possible.
 2. Wide range of asset classes: Interactive Brokers offers trading in a wide range of asset classes, including stocks, options, futures, forex, bonds, and more.
 3. Global reach: Interactive Brokers offers trading in over 135 markets in 33 countries, making it a good option for traders who want to access global markets.
