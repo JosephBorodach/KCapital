@@ -117,5 +117,6 @@ Note:
 - This appears to be a trading algorithm that retrieves daily stock data and places trades based on certain conditions.
 - The code consists of two main sections:
 1. the first one runs indefinitely (while True:) and retrieves stock data from Nasdaq.com and Yahoo Finance API. 
-    - The data is then filtered based on specific criteria such as recent price movement, volume, and price range.     - The resulting stocks are then sorted according to the specified trade algorithm (moved, lowtomarket, or lowtohigh) and a set number of the best-performing stocks are selected as "stock_picks".
+    - The data is then filtered based on specific criteria such as recent price movement, volume, and price range.
+    - The resulting stocks are then sorted according to the specified trade algorithm (moved, lowtomarket, or lowtohigh) and a set number of the best-performing stocks are selected as "stock_picks".
 2. The second section is also an indefinite loop that executes trades based on specific times during the day (usually at the start or end of the trading day) and the stocks chosen in the first section. This section is cut off in the provided code, so it is unclear exactly what trades are being executed.
