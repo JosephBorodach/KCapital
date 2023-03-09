@@ -4,6 +4,26 @@
 - Our focus on advanced technology allows us to adapt quickly to changing market conditions and identify profitable opportunities, while our commitment to improving access to education ensures that a portion of our profits goes towards supporting the next generation of learners. 
 - Join us in making a difference while achieving your financial goals with KCapital.
 
+## General Plan
+Here are some recommendations:
+
+### 1. Start with a simple strategy
+- It's best to start with a simple strategy that you understand and can implement easily. For example, a trend-following strategy that buys when the price crosses above a moving average and sells when the price crosses below it. This will allow you to focus on the technical aspects of implementing the strategy using the Alpaca API rather than getting bogged down in the complexities of the strategy itself.
+
+### 2. Use backtesting to evaluate your strategy
+- Before you start trading with real money, use backtesting to evaluate the performance of your strategy using historical data. This will give you an idea of how the strategy would have performed in the past and can help you identify any flaws or limitations in the strategy.
+
+### 3. Implement risk management
+- Trading algorithms can be risky, so it's important to implement risk management strategies to limit your exposure to losses. For example, you could implement stop-loss orders or position sizing rules to limit your losses.
+
+### 4. Consider using machine learning
+- Machine learning algorithms can be used to identify patterns in market data and improve the performance of your trading strategy. For example, you could use a machine learning algorithm to predict which stocks are likely to perform well based on historical data.
+
+### 5. Continuously monitor and refine your strategy
+- Markets are constantly changing, so it's important to continuously monitor and refine your trading strategy to ensure that it remains effective. This may involve adjusting parameters or incorporating new data sources.
+
+Overall, the key to success with a trading algorithm is to start with a simple and well-understood strategy, use backtesting to evaluate its performance, implement risk management strategies, and continuously monitor and refine the strategy over time.
+
 ## General Outline
 ### 1. Initialize the system:
 a. Load necessary libraries and dependencies.<br/>
@@ -71,11 +91,23 @@ Note:
 3. Coinbase: Coinbase provides an API for trading cryptocurrencies, including Bitcoin, Ethereum, and Litecoin. The platform supports both REST and WebSocket APIs for accessing real-time market data and placing orders. 
 4. Oanda: Oanda's API provides access to forex market data and trading functionality. The platform is known for its low spreads and user-friendly interface.
 
-## Packages & Classes
-### AlpacaAPI
-- Contains several instances of various AlpacaEndpoints and AlpacaWebsockets to interface with Alpaca. 
-- These endpoints allow the user to perform various operations such as retrieving account information, submitting orders, managing positions and assets, accessing market data, etc.
-- The program uses the OkHttp library to create and send HTTP requests to the Alpaca API. 
-- The program uses the slf4j library for logging purposes.
-- The program also uses properties specified in the alpaca.properties file (or their associated defaults) to instantiate a new AlpacaAPI object.
-- There are two constructors for the AlpacaAPI class: one that uses properties specified in the alpaca.properties file and another that takes in the key ID and secret key as parameters.
+## Trading Algorithms
+
+### 1. Trend-following algorithms
+- These algorithms identify market trends and attempt to profit from them by buying when the market is rising and selling when it is falling. Trend-following algorithms can be based on technical indicators such as moving averages, or they can use machine learning techniques to identify patterns in market data.
+
+### 2. Mean-reversion algorithms
+- These algorithms attempt to profit from market movements that are expected to revert to their mean. For example, if a stock is trading at a price that is significantly higher or lower than its historical average, a mean-reversion algorithm may buy or sell the stock with the expectation that its price will eventually return to its average.
+
+### 3. Arbitrage algorithms
+- These algorithms attempt to profit from price discrepancies between different markets or assets. For example, an arbitrage algorithm may buy an asset on one exchange where it is priced lower and simultaneously sell it on another exchange where it is priced higher, profiting from the price difference.
+
+### 4. Market-making algorithms
+- These algorithms provide liquidity to the market by buying and selling assets at the bid and ask prices. Market-making algorithms can help to reduce bid-ask spreads and improve market efficiency.
+
+### 5. High-frequency trading algorithms
+- These algorithms use powerful computers and advanced algorithms to execute trades at extremely high speeds, often in fractions of a second. High-frequency trading algorithms are designed to exploit small price movements and can generate profits through high trading volumes.
+
+### 6. Statistical arbitrage algorithms
+- These algorithms use statistical models to identify market inefficiencies and profit from them. For example, a statistical arbitrage algorithm may identify two assets that are highly correlated and trade them simultaneously, profiting from any deviations in their relative prices.
+
