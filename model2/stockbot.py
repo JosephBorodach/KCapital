@@ -1,19 +1,10 @@
 #!/usr/bin/env python
 """
-https://github.com/shirosaidev/stockbot
-
-Copyright (C) Chris Park (shirosai) 2021
-stockbot is released under the Apache 2.0 license. See
-LICENSE for the full license text.
-
 export APCA_API_KEY_ID=PK9MOKLESAUEDPPUACON
 export APCA_API_SECRET_KEY=0OqBa6wUahOsymQeF3J2tsddrE8M9H3KPdsijEj8
 export APCA_API_BASE_URL=https://paper-api.alpaca.markets
-
 python3 stockbot.py -t moved -b buyatopen
-python3 stockbot.py -t moved -b buyatclose
 """
-
 import os, sys
 import csv
 import requests
@@ -25,22 +16,16 @@ from datetime import date, datetime, timedelta
 from pytz import timezone
 from random import randint
 from urllib.parse import urlparse
-
 from config import *
-
 import alpaca_trade_api as tradeapi
 from alpaca_trade_api.rest import APIError
 
-
 STOCKBOT_VERSION = '0.1-b.3'
 __version__ = STOCKBOT_VERSION
-
 TZ = timezone('America/New_York')
-
 APIKEYID = os.getenv('APCA_API_KEY_ID')
 APISECRETKEY = os.getenv('APCA_API_SECRET_KEY')
 APIBASEURL = os.getenv('APCA_API_BASE_URL')
-
 api = tradeapi.REST(APIKEYID, APISECRETKEY, APIBASEURL)
 
 
@@ -219,10 +204,7 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
 
     print('Current positions:')
     print(api.list_positions())
-
     equity = START_EQUITY
-
-    # times to buy/sell
 
     if startbuytime == 'buyatopen':
         get_stocks_h, get_stocks_m = BAO_GET_STOCKS_TIME.split(':')
@@ -230,7 +212,7 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
         buy_eh, buy_em = BAO_BUY_END_TIME.split(':')
         sell_sh, sell_sm = BAO_SELL_START_TIME.split(':')
         sell_eh, sell_em = BAO_SELL_END_TIME.split(':')
-    else:  # buy at close
+    else:
         get_stocks_h, get_stocks_m = BAC_GET_STOCKS_TIME.split(':')
         buy_sh, buy_sm = BAC_BUY_START_TIME.split(':')
         buy_eh, buy_em = BAC_BUY_END_TIME.split(':')
@@ -239,21 +221,11 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
 
     while True:
         try:
-            # get the best buy and strong buy stock from Nasdaq.com and 
-            # sort them by the best stocks using one of the chosen algo
-
-            if datetime.today().weekday() in BUY_DAYS and datetime.now(tz=TZ).hour == get_stocks_h \
-                and datetime.now(tz=TZ).minute == get_stocks_m:
-
+            if datetime.today().weekday() in BUY_DAYS and datetime.now(tz=TZ).hour == get_stocks_h and datetime.now(tz=TZ).minute == get_stocks_m:
                 print(datetime.now(tz=TZ).isoformat())
                 print('getting buy and strong buy stocks from Nasdaq.com...')
-
-                stock_info = []
-
+                stock_info, strong_buy_stocks = [], []
                 data = get_nasdaq_buystocks()
-
-                strong_buy_stocks = []
-
                 for d in data['data']['table']['rows']:
                     # Get daily price data for stock symbol over the last n trading days.
                     barset = api.get_barset(d['symbol'], 'day', limit=MOVED_DAYS)
@@ -261,7 +233,6 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                         print('stock symbol {} not found'.format(d['symbol']))
                         continue
                     stock_bars = barset[d['symbol']]
-
                     # See how much stock ticker moved in that timeframe.
                     if MOVED_DAYS_CALC == 0:
                         price_open = stock_bars[0].o
@@ -278,18 +249,14 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                             x += 1
                         avg = round(sum(prices) / MOVED_DAYS, 3)
                         percent_change = avg
-                        
                     print('{} moved {}% over the last {} days'.format(d['symbol'], percent_change, MOVED_DAYS))
-                    
-                    strong_buy_stocks.append({'symbol': d['symbol'], 'company': d['name'], 
-                                                'moved': percent_change})
+                    strong_buy_stocks.append({'symbol': d['symbol'], 'company': d['name'], 'moved': percent_change})
 
                 for stock_item in strong_buy_stocks:
                     stock = stock_item['symbol']
-                    # print('DEBUG', stock)
+                    print('DEBUG', stock)
                     sys.stdout.write('stockbot')
                     sys.stdout.flush()
-
                     data = get_stock_info(stock)
                     if not data:
                         print('stock symbol {} not found in yahoo finance'.format(stock))
@@ -299,38 +266,30 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                     if exchange_name not in ['NYQ', 'NMS']:
                         print('stock symbol {} in different exchange {}'.format(stock, exchange_name))
                         continue
-
                     try:
                         stock_high = round(data['chart']['result'][0]['indicators']['quote'][0]['high'][1], 2)
                     except Exception:
                         stock_high = round(data['chart']['result'][0]['indicators']['quote'][0]['high'][0], 2)
-
                     try:
                         stock_low = round(data['chart']['result'][0]['indicators']['quote'][0]['low'][1], 2)
                     except Exception:
                         stock_low = round(data['chart']['result'][0]['indicators']['quote'][0]['low'][0], 2)
-
                     change_low_to_high = round(stock_high - stock_low, 3)
-
                     stock_price = get_stock_price(data)
 
                     try:
                         stock_volume = data['chart']['result'][0]['indicators']['quote'][0]['volume'][1]
                     except Exception:
                         stock_volume = data['chart']['result'][0]['indicators']['quote'][0]['volume'][0]
-
                     if stock_price > STOCK_MAX_PRICE or stock_price < STOCK_MIN_PRICE:
                         continue
-
                     change_low_to_market = round(stock_price - stock_low, 3)
-
                     stock_info.append({'symbol': stock, 'company': stock_item['company'], 
                                         'market_price': stock_price, 'low': stock_low, 
                                         'high': stock_high, 'volume': stock_volume,
                                         'change_low_to_high': change_low_to_high,
                                         'change_low_to_market': change_low_to_market,
                                         'moved': stock_item['moved']})
-                
                 # sort stocks
                 if tradealgo == 'moved':
                     biggest_movers = sorted(stock_info, key = lambda i: i['moved'], reverse = True)
@@ -341,32 +300,17 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
 
                 stock_picks = biggest_movers[0:MAX_NUM_STOCKS]
                 print('\n')
-
                 print(datetime.now(tz=TZ).isoformat())
                 print('today\'s stocks {}'.format(stock_info))
                 print('\n')
                 print('today\'s picks {}'.format(stock_picks))
                 print('\n')
-
-
-            # buy stocks
-            # buy at open
-            # check stock prices at 9:30am EST (market open) and continue to check for the next 1.5 hours
-            # to see if stock is going down or going up, when the stock starts to go up, buy
-
-            # buy at close
-            # buy stocks at 3:00pm EST and hold until next day
-
-            if datetime.today().weekday() in [0,1,2,3,4] and datetime.now(tz=TZ).hour == buy_sh \
-                and datetime.now(tz=TZ).minute == buy_sm:
-
+            # Buy at open: check stock prices at 9:30am EST (market open) and continue to check for the next 1.5 hours to see if stock is going down or going up, when the stock starts to go up
+            # Buy at close: buy stocks at 3:00pm EST and hold until next day
+            if datetime.today().weekday() in [0,1,2,3,4] and datetime.now(tz=TZ).hour == buy_sh and datetime.now(tz=TZ).minute == buy_sm:
                 print(datetime.now(tz=TZ).isoformat())
                 print('starting to buy stocks...')
-
-                stock_prices = []
-                stock_bought_prices = []
-                bought_stocks = []
-
+                stock_prices, stock_bought_prices, bought_stocks = [], [], []
                 total_buy_price = 0
                 while True:
                     for stock in stock_picks:
@@ -377,14 +321,10 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                                 break
                         if already_bought:
                             continue
-
                         data = get_stock_info(stock['symbol'])
                         stock_price_buy = get_stock_price(data)
-
                         # count the number of stock prices for the stock we have
-                        num_prices = 0
-                        went_up = 0
-                        went_down = 0
+                        num_prices, went_up, went_down = 0, 0, 0
                         for stockitem in stock_prices:
                             if stockitem[0] == stock['symbol']:
                                 num_prices +=1
@@ -393,11 +333,7 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                                     went_up += 1
                                 else:
                                     went_down += 1
-
-                        # buy the stock if there are 5 records of it and it's gone up and if we have
-                        # enough equity left to buy
-                        # if buying at end of day, ignore record checking to force it to buy
-
+                        # buy the stock if there are 5 records of it and it's gone up and if we have enough equity left to buy if buying at end of day, ignore record checking to force it to buy
                         if startbuytime == 'buyatclose':
                             n = 0
                             went_up = 1
@@ -415,9 +351,7 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                             stock_bought_prices.append([stock['symbol'], stock_price_buy, buy_time])
                             bought_stocks.append(stock)
                             equity -= buy_price
-                        
                         stock_prices.append([stock['symbol'], stock_price_buy])
-
                     # sleep and check prices again after 2 min if time is before 11:00am EST / 4:00pm EST (market close)
                     if len(stock_bought_prices) == MAX_NUM_STOCKS or \
                         equity == 0 or \
@@ -425,32 +359,19 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                         break
                     else:
                         time.sleep(120)
-                
                 print(datetime.now(tz=TZ).isoformat())
                 print('sent buy orders for {} stocks, market price ${}'.format(len(bought_stocks), round(total_buy_price, 2)))
                 if startbuytime == 'buyatclose':
                     print('holding these stocks and selling them the next market open day...')
                 print('\n')
-
-            # sell stocks
-
-            # check stock prices at 9:30am EST (buy at close) / 11:00am EST and continue to check until 1:00pm EST to
-            # see if it goes up by x percent, sell it if it does
-            # when the stock starts to go down starting at 1:00pm EST, sell or 
-            # sell at end of day 2:00pm EST (buy at close) / 3:30pm EST
-            
-            if datetime.today().weekday() in [0,1,2,3,4] and datetime.now(tz=TZ).hour == sell_sh \
-                and datetime.now(tz=TZ).minute >= sell_sm:
-
+            # Sell stocks: check stock prices at 9:30am EST (buy at close) / 11:00am EST and continue to check until 1:00pm EST to see if it goes up by x percent, sell it if it does
+            # when the stock starts to go down starting at 1:00pm EST, sell or sell at end of day 2:00pm EST (buy at close) / 3:30pm EST
+            if datetime.today().weekday() in [0,1,2,3,4] and datetime.now(tz=TZ).hour == sell_sh and datetime.now(tz=TZ).minute >= sell_sm:
                 stock_prices = []
-
                 stock_sold_prices = []
-
                 stock_data_csv = [['symbol', 'company', 'buy', 'buy time', 'sell', 'sell time', 'profit', 'percent', 'vol sod', 'vol sell']]
-
                 print(datetime.now(tz=TZ).isoformat())
                 print('selling stock if it goes up by {}%...'.format(SELL_PERCENT_GAIN))
-
                 while True:
                     for stock in bought_stocks:
                         already_sold = False
@@ -490,7 +411,6 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                             print(sell_time)
                             print('stock {} ({}) hasn\'t gone up enough to sell ${} (diff ${} {}%)'.format(
                                 stock['symbol'], stock['company'], stock_price_sell, diff, change_perc))
-
                     # sleep and check prices again after 2 min if time is before 1:00pm EST
                     if len(stock_sold_prices) == len(bought_stocks) or \
                         (datetime.now(tz=TZ).hour == 13 and datetime.now(tz=TZ).minute >= 0):  # 1:00pm EST
@@ -498,9 +418,7 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                     else:
                         time.sleep(120)
 
-                if len(stock_sold_prices) < len(bought_stocks) and \
-                    (datetime.now(tz=TZ).hour == 13 and datetime.now(tz=TZ).minute >= 0):  # 1:00pm EST
-                
+                if len(stock_sold_prices) < len(bought_stocks) and (datetime.now(tz=TZ).hour == 13 and datetime.now(tz=TZ).minute >= 0):  # 1:00pm EST
                     print(datetime.now(tz=TZ).isoformat())
                     print('selling any remaining stocks if they go down, or else sell at end of day...')
 
@@ -568,8 +486,7 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                     print('*** PERCENT {}%'.format(percent))
                     print('*** EQUITY ${}'.format(equity))
 
-                    # wait until end of day for all the final sells and
-                    # print an Alpaca stock summary
+                    # wait until end of day for all the final sells and print an Alpaca stock summary
                     print('waiting for Alpaca report...')
                     while True:
                         if datetime.now(tz=TZ).hour == sell_eh and datetime.now(tz=TZ).minute >= sell_em + 5:
@@ -577,7 +494,6 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                         time.sleep(60)
 
                     # print out summary of today's buy/sells on alpaca
-
                     todays_buy_sell = get_eod_change_percents(startbuytime)
                     print(datetime.now(tz=TZ).isoformat())
                     print(todays_buy_sell) 
@@ -611,11 +527,9 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                     print('*** PROFIT/LOSS {}'.format(profit_str))
 
                     # write csv
-
                     now = datetime.now(tz=TZ).date().isoformat()
                     csv_file = 'stocks_{0}_{1}.csv'.format(tradealgo, now)
                     f = open(csv_file, 'w')
-
                     with f:
                         writer = csv.writer(f)
                         for row in stock_data_csv:
@@ -629,14 +543,11 @@ Alpaca algo stock trading bot.""".format(STOCKBOT_VERSION)
                         writer.writerow([])
                         writer.writerow(["BUY", buy_str])
                         writer.writerow(["SELL", sell_str])
-                    
                     # set equity back to start value to not reinvest any gains
                     if equity > START_EQUITY:
                         equity = START_EQUITY
-
             print(datetime.now(tz=TZ).isoformat(), '$ zzz...')
             time.sleep(60)
-
         except KeyboardInterrupt:
             print('Ctrl+c pressed, exiting')
 
