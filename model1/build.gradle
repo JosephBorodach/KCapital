@@ -47,6 +47,7 @@ dependencies {
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
     implementation group: 'com.github.devcsrj', name: 'slf4j-okhttp3-logging-interceptor', version: '1.0.1'
 
+    // implementation group: 'net.jacobpeterson', name: 'alpaca-java', version: '7.1.1'
     implementation group: 'net.jacobpeterson', name: 'alpaca-java', version: '9.1.2'
 
     // Unit test dependencies

@@ -31,18 +31,13 @@ import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * {@link AlpacaEndpoint} for
- * <a href="https://alpaca.markets/docs/api-documentation/api-v2/market-data/alpaca-data-api-v2/historical/">Historical
- * Market Data API v2</a>.
+ * {@link AlpacaEndpoint} for <a href="https://alpaca.markets/docs/api-documentation/api-v2/market-data/alpaca-data-api-v2/historical/">Historical Market Data API v2</a>.
  */
 public class StockMarketDataEndpoint extends AlpacaEndpoint {
-
-    private static final Type SNAPSHOTS_OF_STRINGS_HASHMAP_TYPE =
-            new TypeToken<HashMap<String, Snapshot>>() {}.getType();
+    private static final Type SNAPSHOTS_OF_STRINGS_HASHMAP_TYPE = new TypeToken<HashMap<String, Snapshot>>() {}.getType();
 
     /**
      * Instantiates a new {@link StockMarketDataEndpoint}.
-     *
      * @param alpacaClient the {@link AlpacaClient}
      */
     public StockMarketDataEndpoint(AlpacaClient alpacaClient) {
@@ -65,8 +60,7 @@ public class StockMarketDataEndpoint extends AlpacaEndpoint {
      *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
-    public StockTradesResponse getTrades(String symbol, ZonedDateTime start, ZonedDateTime end, Integer limit,
-            String pageToken) throws AlpacaClientException {
+    public StockTradesResponse getTrades(String symbol, ZonedDateTime start, ZonedDateTime end, Integer limit, String pageToken) throws AlpacaClientException {
         checkNotNull(symbol);
         checkNotNull(start);
         checkNotNull(end);
@@ -87,19 +81,14 @@ public class StockMarketDataEndpoint extends AlpacaEndpoint {
             urlBuilder.addQueryParameter("page_token", pageToken);
         }
 
-        Request request = alpacaClient.requestBuilder(urlBuilder.build())
-                .get()
-                .build();
+        Request request = alpacaClient.requestBuilder(urlBuilder.build()).get().build();
         return alpacaClient.requestObject(request, StockTradesResponse.class);
     }
 
     /**
      * Gets the latest {@link StockTrade} for the requested security.
-     *
      * @param symbol the symbol to query for
-     *
      * @return the {@link LatestStockTradeResponse}
-     *
      * @throws AlpacaClientException thrown for {@link AlpacaClientException}s
      */
     public LatestStockTradeResponse getLatestTrade(String symbol) throws AlpacaClientException {

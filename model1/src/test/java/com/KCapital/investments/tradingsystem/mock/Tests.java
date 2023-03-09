@@ -1,6 +1,5 @@
 package com.KCapital.investments.tradingsystem.mock;
 
-
 import com.KCapital.investments.tradingsystem.rest.endpoint.accountactivities.AccountActivitiesEndpoint;
 import com.KCapital.investments.tradingsystem.rest.endpoint.accountconfiguration.AccountConfigurationEndpoint;
 import com.KCapital.investments.tradingsystem.rest.endpoint.orders.OrdersEndpoint;

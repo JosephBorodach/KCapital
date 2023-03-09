@@ -43,6 +43,10 @@ import com.KCapital.investments.tradingsystem.websocket.streaming.StreamingWebso
  * AKQCR5TPKAKU6UOXH7L9
  * ndsget9Yf1xNAfV6kR9IA6JdpMbT4lHAGZbHpVfH
  *
+ * export APCA_API_KEY_ID=PK9MOKLESAUEDPPUACON
+ * export APCA_API_SECRET_KEY=0OqBa6wUahOsymQeF3J2tsddrE8M9H3KPdsijEj8
+ * export APCA_API_BASE_URL=https://paper-api.alpaca.markets
+ *
  * Paper:
  * PK9MOKLESAUEDPPUACON
  * 0OqBa6wUahOsymQeF3J2tsddrE8M9H3KPdsijEj8

@@ -42,7 +42,6 @@ public class OrdersEndpoint extends AlpacaEndpoint {
 
     /**
      * Instantiates a new {@link OrdersEndpoint}.
-     *
      * @param alpacaClient the {@link AlpacaClient}
      */
     public OrdersEndpoint(AlpacaClient alpacaClient) {
@@ -506,14 +505,9 @@ public class OrdersEndpoint extends AlpacaEndpoint {
      */
     public Order getByClientID(String clientOrderID) throws AlpacaClientException {
         checkNotNull(clientOrderID);
-
-        HttpUrl.Builder urlBuilder = alpacaClient.urlBuilder()
-                .addPathSegment("orders:by_client_order_id");
+        HttpUrl.Builder urlBuilder = alpacaClient.urlBuilder().addPathSegment("orders:by_client_order_id");
         urlBuilder.addQueryParameter("client_order_id", clientOrderID);
-
-        Request request = alpacaClient.requestBuilder(urlBuilder.build())
-                .get()
-                .build();
+        Request request = alpacaClient.requestBuilder(urlBuilder.build()).get().build();
         return alpacaClient.requestObject(request, Order.class);
     }
 

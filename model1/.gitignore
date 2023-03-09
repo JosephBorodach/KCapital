@@ -22,10 +22,10 @@ logs/
 *.iml
 
 *.idea
-../.idea
+.idea
 
-target
-target/
+*target
+*target/
 target/
 target
 
