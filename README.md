@@ -111,3 +111,11 @@ Note:
 ### 6. Statistical arbitrage algorithms
 - These algorithms use statistical models to identify market inefficiencies and profit from them. For example, a statistical arbitrage algorithm may identify two assets that are highly correlated and trade them simultaneously, profiting from any deviations in their relative prices.
 
+## Model 2
+- This type of trading approach is a combination of a momentum trading strategy and a buy-and-hold strategy. 
+- The momentum trading strategy is used to identify stocks that have moved significantly over the last few days, - while the buy-and-hold strategy is used to buy stocks at market open and hold them until the next market open day.
+- This appears to be a trading algorithm that retrieves daily stock data and places trades based on certain conditions.
+- The code consists of two main sections:
+1. the first one runs indefinitely (while True:) and retrieves stock data from Nasdaq.com and Yahoo Finance API. 
+  - The data is then filtered based on specific criteria such as recent price movement, volume, and price range.     - The resulting stocks are then sorted according to the specified trade algorithm (moved, lowtomarket, or lowtohigh) and a set number of the best-performing stocks are selected as "stock_picks".
+2. The second section is also an indefinite loop that executes trades based on specific times during the day (usually at the start or end of the trading day) and the stocks chosen in the first section. This section is cut off in the provided code, so it is unclear exactly what trades are being executed.
